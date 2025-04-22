@@ -38,8 +38,9 @@ class ClientUDP
 
     public static void start()
     {
-        IPEndPoint clientEndPoint = new IPEndPoint(IPAddress.Parse(setting.ClientIPAddress), setting.ClientPortNumber);
+        IPEndPoint clientEndPoint = new IPEndPoint(IPAddress.Any, setting.ClientPortNumber);
         IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse(setting.ServerIPAddress), setting.ServerPortNumber);
+
         Socket clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
         clientSocket.Bind(clientEndPoint);
         
@@ -117,7 +118,11 @@ class ClientUDP
 
     private static void HandleWaitingForWelcomeState(ClientContext context)
     {
-        context.ReceivedMessage = MessageUtils.ReceiveMessage(context.ClientSocket, context.RemoteEndPoint);
+      IPEndPoint senderEndPoint = (IPEndPoint)context.RemoteEndPoint;
+
+      context.ReceivedMessage = MessageUtils.ReceiveMessage(context.ClientSocket, ref senderEndPoint);
+
+      context.RemoteEndPoint = senderEndPoint;
         
         if (context.ReceivedMessage?.MsgType == MessageType.Welcome)
         {
@@ -186,7 +191,11 @@ class ClientUDP
 
     private static void HandleWaitingForDNSLookupReplyState(ClientContext context)
     {
-        context.ReceivedMessage = MessageUtils.ReceiveMessage(context.ClientSocket, context.RemoteEndPoint);
+        IPEndPoint senderEndPoint = (IPEndPoint)context.RemoteEndPoint;
+
+        context.ReceivedMessage = MessageUtils.ReceiveMessage(context.ClientSocket, ref senderEndPoint);
+
+        context.RemoteEndPoint = senderEndPoint;
 
         if (context.ReceivedMessage?.MsgType == MessageType.DNSLookupReply)
         {
@@ -249,7 +258,12 @@ class ClientUDP
     private static void HandleWaitingForEndState(ClientContext context)
     {
         MessageUtils.LogInfo("Waiting for End message from server...");
-        context.ReceivedMessage = MessageUtils.ReceiveMessage(context.ClientSocket, context.RemoteEndPoint);
+
+        IPEndPoint senderEndPoint = (IPEndPoint)context.RemoteEndPoint;
+    
+        context.ReceivedMessage = MessageUtils.ReceiveMessage(context.ClientSocket, ref senderEndPoint);
+    
+        context.RemoteEndPoint = senderEndPoint;
 
         if (context.ReceivedMessage?.MsgType == MessageType.End)
         {

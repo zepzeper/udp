@@ -40,3 +40,4 @@
 /Users/zepzeper/school/wouter_1010746_josephine_1026549/server/obj/Debug/net8.0/server.pdb
 /Users/zepzeper/school/wouter_1010746_josephine_1026549/server/obj/Debug/net8.0/server.genruntimeconfig.cache
 /Users/zepzeper/school/wouter_1010746_josephine_1026549/server/obj/Debug/net8.0/ref/server.dll
+/Users/zepzeper/school/wouter_1010746_josephine_1026549/server/obj/Debug/net8.0/server.sourcelink.json

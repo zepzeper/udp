@@ -40,3 +40,4 @@
 /Users/zepzeper/school/wouter_1010746_josephine_1026549/client/obj/Debug/net8.0/client.pdb
 /Users/zepzeper/school/wouter_1010746_josephine_1026549/client/obj/Debug/net8.0/client.genruntimeconfig.cache
 /Users/zepzeper/school/wouter_1010746_josephine_1026549/client/obj/Debug/net8.0/ref/client.dll
+/Users/zepzeper/school/wouter_1010746_josephine_1026549/client/obj/Debug/net8.0/client.sourcelink.json
